@@ -46,3 +46,4 @@ curl -X POST http://localhost:8000/devices/send \
      -d '{"fCnt": 101, "data": "AAAA", "devEUI": "123123"}'
 ```
 5. Refresh the page at http://localhost:8000/devices/123123 and you will see a second payload, and the device in a "failing" state.
+6. You can repeat any of the above CURL commands to test that the uniqueness of `fCnt` is honored. You should receive a 400 status code.

@@ -2,7 +2,6 @@ from django.views.generic import TemplateView
 
 from devices.models.device import Device
 from devices.models.payload import Payload
-from devices.serializers.device_payload import DevicePayloadSerializer
 
 class DeviceDetailView(TemplateView):
     template_name = 'device_detail.html'
