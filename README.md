@@ -5,7 +5,7 @@
 First, you just have to create a virtual environment and install dependencies:
 
 ```sh
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
@@ -17,7 +17,7 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-The super user details don't matter, just use "moe" for the username and "password" for the password.
+Use "moe" for the username and "password" for the password.
 
 ## Running
 
