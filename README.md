@@ -37,13 +37,13 @@ curl -X POST http://localhost:8000/devices/send \
      -H "Content-Type: application/json" \
      -d '{"fCnt": 100, "data": "AQ==", "devEUI": "123123"}'
 ```
-3. Refresh the page at http://localhost:8000/devices/123123 and you will see a single payload.
+3. Refresh the page at http://localhost:8000/devices/123123 and you will see a single payload, and the device in a "passing" state.
 4. Run the following CURL command:
 ```sh
 curl -X POST http://localhost:8000/devices/send \
      -u moe:password \
      -H "Content-Type: application/json" \
-     -d '{"fCnt": 101, "data": "AAAA", "devEUI": "123123"}'
+     -d '{"fCnt": 101, "data": "AA==", "devEUI": "123123"}'
 ```
 5. Refresh the page at http://localhost:8000/devices/123123 and you will see a second payload, and the device in a "failing" state.
 6. You can repeat any of the above CURL commands to test that the uniqueness of `fCnt` is honored. You should receive a 400 status code.

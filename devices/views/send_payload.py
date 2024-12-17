@@ -9,7 +9,7 @@ from devices.models.status import Status
 from devices.serializers.payload import PayloadSerializer
 
 def _is_data_passing(data: str) -> bool:
-    return data == '\x01'
+    return data == '01'
 
 class SendPayloadAPIView(APIView):
     def post(self, request):
@@ -19,11 +19,11 @@ class SendPayloadAPIView(APIView):
         if not payload_serializer.is_valid():
             return Response(payload_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        payload_serializer.validated_data['data'] = (
-            base64.b64decode(payload_serializer.validated_data['data']).decode('utf-8'))
-        payload_serializer.validated_data['status'] = (
-            Status.PASSING.value if _is_data_passing(payload_serializer.validated_data['data']) else \
-                Status.FAILING.value)
+        payload_serializer.validated_data['data'] = base64.b64decode(payload_serializer.validated_data['data']).hex()
+        if _is_data_passing(payload_serializer.validated_data['data']):
+            payload_serializer.validated_data['status'] = Status.PASSING.value
+        else:
+            payload_serializer.validated_data['status'] = Status.FAILING.value
 
         device.latest_status = payload_serializer.validated_data['status']
 
