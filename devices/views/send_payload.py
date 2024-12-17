@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from devices.models.device import Device
+from devices.models.status import Status
 from devices.serializers.payload import PayloadSerializer
 
 def _is_data_passing(data: str) -> bool:
@@ -21,7 +22,8 @@ class SendPayloadAPIView(APIView):
         payload_serializer.validated_data['data'] = (
             base64.b64decode(payload_serializer.validated_data['data']).decode('utf-8'))
         payload_serializer.validated_data['status'] = (
-            'passing' if _is_data_passing(payload_serializer.validated_data['data']) else 'failing')
+            Status.PASSING.value if _is_data_passing(payload_serializer.validated_data['data']) else \
+                Status.FAILING.value)
 
         device.latest_status = payload_serializer.validated_data['status']
 
