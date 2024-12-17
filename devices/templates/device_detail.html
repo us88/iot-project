@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Device Details</title>
+  <style>
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f4f4f4; }
+    h1, h2 { font-family: Arial, sans-serif; }
+  </style>
+</head>
+<body>
+  <h1>Device Details</h1>
+  {% if device %}
+    <h2>Device Metadata</h2>
+    <ul>
+      <li><strong>Device EUI:</strong> {{ device.devEUI }}</li>
+      <li><strong>Latest Status:</strong> {{ device.latest_status }}</li>
+    </ul>
+
+    <h2>Payloads</h2>
+    {% if payloads %}
+      <table>
+        <thead>
+          <tr>
+            <th>Frame Counter (fCnt)</th>
+            <th>Data</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for payload in payloads %}
+          <tr>
+            <td>{{ payload.fCnt }}</td>
+            <td>{{ payload.data }}</td>
+            <td>{{ payload.status }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No payloads found for this device.</p>
+    {% endif %}
+  {% else %}
+    <p>Device not found.</p>
+  {% endif %}
+</body>
+</html>
